@@ -17,6 +17,18 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckMovement();
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "ground")
+        {
+            grounded = true;
+        }
+    }
+
+    void CheckMovement()
+    {
         if (Input.GetKey(LeftControlKey))
         {
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(-5.0f, this.GetComponent<Rigidbody2D>().velocity.y);
@@ -45,13 +57,6 @@ public class PlayerMovement : MonoBehaviour
         {
             this.GetComponent<Animator>().SetInteger("motion", 0);
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, this.GetComponent<Rigidbody2D>().velocity.y);
-        }
-    }
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "ground")
-        {
-            grounded = true;
         }
     }
 }
