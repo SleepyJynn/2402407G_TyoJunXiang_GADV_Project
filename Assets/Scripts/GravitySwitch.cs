@@ -9,6 +9,7 @@ public class GravitySwitch : MonoBehaviour
     private bool isFlipped = false;
     private Coroutine currentFlip;
 
+    public GameUIManager uiManager;
     void Update()
     {
         GravSwitch();
@@ -21,6 +22,7 @@ public class GravitySwitch : MonoBehaviour
             // Flip gravity
             normalgrav = !normalgrav;
             this.GetComponent<Rigidbody2D>().gravityScale = normalgrav ? 1 : -1;
+            uiManager.SetGravity(normalgrav);
 
             // Flip sprite
             isFlipped = !isFlipped;
