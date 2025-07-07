@@ -9,15 +9,21 @@ public class PlayerMovement : MonoBehaviour
     public string LeftControlKey;
     public string RightControlKey;
     public string SpaceControlKey;
+
+    private bool upsidedown = false;
+    public GravitySwitch switchgravity;
+
     void Start()
     {
         Debug.Log("Game starts");
+        switchgravity = this.GetComponent<GravitySwitch>();
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckMovement();
+        Debug.Log(grounded);
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -32,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(LeftControlKey))
         {
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(-5.0f, this.GetComponent<Rigidbody2D>().velocity.y);
-            //this.GetComponent<SpriteRenderer>().flipX = true;
+            this.GetComponent<SpriteRenderer>().flipX = true;
             if (grounded == true)
             {
                 this.GetComponent<Animator>().SetInteger("motion", 1);
@@ -41,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey(RightControlKey))
         {
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(5.0f, this.GetComponent<Rigidbody2D>().velocity.y);
-            //this.GetComponent<SpriteRenderer>().flipX = false;
+            this.GetComponent<SpriteRenderer>().flipX = false;
             if (grounded == true)
             {
                 this.GetComponent<Animator>().SetInteger("motion", 1);
@@ -49,13 +55,28 @@ public class PlayerMovement : MonoBehaviour
         }
         if (Input.GetKey(SpaceControlKey) && grounded == true)
         {
-            this.GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x, 6f);
-            grounded = false;
-            this.GetComponent<Animator>().SetInteger("motion", 2);
+            if (switchgravity.isFlipped == true)
+            {
+                this.GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x, -6f);
+                grounded = false;
+                this.GetComponent<Animator>().SetInteger("motion", 2);
+            }
+            else
+            {
+                this.GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x, 6f);
+                grounded = false;
+                this.GetComponent<Animator>().SetInteger("motion", 2);
+            }
         }
         if (!Input.anyKey && grounded == true)
         {
             this.GetComponent<Animator>().SetInteger("motion", 0);
+        }
+    }
+    void FixedUpdate()
+    {
+        if (!Input.anyKey && grounded)
+        {
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, this.GetComponent<Rigidbody2D>().velocity.y);
         }
     }

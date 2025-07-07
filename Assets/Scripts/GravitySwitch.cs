@@ -6,7 +6,7 @@ public class GravitySwitch : MonoBehaviour
     public float duration = 1f;
 
     private bool normalgrav = true;
-    private bool isFlipped = false;
+    public bool isFlipped = false;
     private Coroutine currentFlip;
 
     public GameUIManager uiManager;
@@ -26,6 +26,7 @@ public class GravitySwitch : MonoBehaviour
 
             // Flip sprite
             isFlipped = !isFlipped;
+            this.GetComponent<SpriteRenderer>().flipX = true;
 
             if (currentFlip != null)
                 StopCoroutine(currentFlip);

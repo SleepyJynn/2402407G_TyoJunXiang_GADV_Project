@@ -18,8 +18,6 @@ public class MovingPlatform : MonoBehaviour
     void Update()
     {
         CheckForMove();
-        Debug.Log(moveUp);
-        Debug.Log(moveDown);
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
