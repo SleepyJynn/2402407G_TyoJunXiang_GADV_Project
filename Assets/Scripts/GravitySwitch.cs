@@ -31,10 +31,10 @@ public class GravitySwitch : MonoBehaviour
             if (currentFlip != null)
                 StopCoroutine(currentFlip);
 
-            currentFlip = StartCoroutine(Flip(isFlipped ? 180f : 0f));
+            currentFlip = StartCoroutine(CoroutineFlip(isFlipped ? 180f : 0f));
         }
     }
-    IEnumerator Flip(float targetAngle)
+    IEnumerator CoroutineFlip(float targetAngle)
     {
         float start = transform.eulerAngles.z;
         float timer = 0;

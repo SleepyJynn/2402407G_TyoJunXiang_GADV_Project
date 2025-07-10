@@ -718,7 +718,7 @@ GameObject:
   - component: {fileID: 1375915039}
   - component: {fileID: 1375915045}
   - component: {fileID: 1375915047}
-  - component: {fileID: 1375915046}
+  - component: {fileID: 1375915048}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -851,7 +851,28 @@ MonoBehaviour:
   duration: 1
   isFlipped: 0
   uiManager: {fileID: 1117656022}
---- !u!60 &1375915046
+--- !u!95 &1375915047
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1375915038}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 68af9485fe9f2cf4896a609e80776ff3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!60 &1375915048
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -895,36 +916,22 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.099999994, y: 0.11}
-      - {x: -0.13, y: 0.06}
-      - {x: -0.13, y: -0.07}
-      - {x: -0.099999994, y: -0.16}
-      - {x: 0.089999996, y: -0.16}
-      - {x: 0.13, y: -0.14}
-      - {x: 0.13, y: 0.089999996}
-      - {x: 0.08, y: 0.11}
+    - - {x: -0.045108467, y: 0.09603335}
+      - {x: -0.0716877, y: 0.07590973}
+      - {x: -0.09408403, y: 0.039981555}
+      - {x: -0.11426397, y: 0.0113132605}
+      - {x: -0.11382157, y: -0.009913918}
+      - {x: -0.10226552, y: -0.07635581}
+      - {x: -0.10321479, y: -0.11698105}
+      - {x: -0.080123186, y: -0.12426235}
+      - {x: -0.068350315, y: -0.16}
+      - {x: 0.075654924, y: -0.16000001}
+      - {x: 0.11270574, y: -0.122685865}
+      - {x: 0.11497721, y: 0.04782051}
+      - {x: 0.09670643, y: 0.0606961}
+      - {x: 0.08550932, y: 0.088266574}
+      - {x: 0.061510354, y: 0.096132785}
   m_UseDelaunayMesh: 0
---- !u!95 &1375915047
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375915038}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 68af9485fe9f2cf4896a609e80776ff3, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2123438565
 GameObject:
   m_ObjectHideFlags: 0
@@ -1068,8 +1075,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3194264701544371409, guid: b161f4380abad554f97181b084819101, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194264701544371409, guid: b161f4380abad554f97181b084819101, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194264701544371409, guid: b161f4380abad554f97181b084819101, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3194264701544371409, guid: b161f4380abad554f97181b084819101, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.39
+      value: -6.77
       objectReference: {fileID: 0}
     - target: {fileID: 3194264701544371409, guid: b161f4380abad554f97181b084819101, type: 3}
       propertyPath: m_LocalPosition.y
