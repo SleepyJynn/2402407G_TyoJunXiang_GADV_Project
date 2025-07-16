@@ -7,8 +7,8 @@ public class MovingPlatform : MonoBehaviour
     // Start is called before the first frame update
     public Transform posA;
     public Transform posB;
-    bool moveDown = false;
-    bool moveUp = true;
+    private bool moveDown = false;
+    private bool moveUp = true;
     void Start()
     {
 

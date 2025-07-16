@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -6,8 +8,8 @@ public class GameUIManager : MonoBehaviour
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI gravityText;
 
-    float timer = 0f;
-    bool isGravityNormal = true;
+    private float timer = 0f;
+    private bool isGravityNormal = true;
 
     void Update()
     {
