@@ -12,11 +12,6 @@ public class PlayerMovement : MonoBehaviour
     public GravitySwitch switchgravity;
 
     private bool grounded = false;
-    //platform gen
-    //    for (int i = 0; i < 100; i++)
-    //    {
-    //        Instantiate(Platform, new Vector2(Random.Range(-6f, 6f), 3+i+i), Platform.transform.rotation);
-    //    }
 void Start()
     {
         Debug.Log("Game starts");
