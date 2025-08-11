@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WinUIController : MonoBehaviour
+public class ExitDoorWin : MonoBehaviour
 {
     // Start is called before the first frame update
     public TextMeshProUGUI winText;
