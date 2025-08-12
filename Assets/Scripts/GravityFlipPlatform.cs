@@ -8,9 +8,11 @@ public class GravityFlipPlatform : MonoBehaviour
     public float duration = 1f;
 
     private Coroutine currentFlip;
+
+    private AudioSource audioSource;
     void Start()
     {
-        
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -20,6 +22,7 @@ public class GravityFlipPlatform : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        audioSource.Play();
         if (collision.gameObject.CompareTag("Player"))
         {
             // Get the GravitySwitch script and call the same method

@@ -63,4 +63,9 @@ public class GameUIManager : MonoBehaviour
         timerText.color = Color.white;
         isFlashing = false;
     }
+
+    public void AddTime(float extraTime)
+    {
+        timer += extraTime;
+    }
 }

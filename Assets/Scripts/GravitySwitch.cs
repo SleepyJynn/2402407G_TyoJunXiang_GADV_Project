@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GravitySwitch : MonoBehaviour
 {
+    // Start is called before the first frame update
     public float duration = 1f;
 
     private bool normalgrav = true;
@@ -12,11 +13,23 @@ public class GravitySwitch : MonoBehaviour
 
     public GameUIManager uiManager;
 
+    public AudioSource audioSource;
+    void Start()
+    {
+
+    }
+    // Update is called once per frame
     void Update()
+    {
+        CheckForInput();
+    }
+
+    void CheckForInput()
     {
         // Manual gravity flip with G key
         if (Input.GetKeyDown(KeyCode.G))
         {
+            audioSource.Play();
             FlipGravity();
         }
     }

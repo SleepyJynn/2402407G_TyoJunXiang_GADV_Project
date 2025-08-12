@@ -12,7 +12,9 @@ public class PlayerMovement : MonoBehaviour
     public GravitySwitch switchgravity;
 
     private bool grounded = false;
-void Start()
+
+    public AudioSource audioSource;
+    void Start()
     {
         Debug.Log("Game starts");
         //assign switchgravity to the GravitySwitch component so i can access it
@@ -92,6 +94,7 @@ void Start()
         }
         if (Input.GetKey(SpaceControlKey) && grounded == true)
         {
+            audioSource.Play();
             //set player y velocity to 6 to jump
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x, 6f);
             grounded = false;
@@ -127,6 +130,7 @@ void Start()
         }
         if (Input.GetKey(SpaceControlKey) && grounded == true)
         {
+            audioSource.Play();
             //set player y velocity to 6 to jump since gravity is flipped
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x, -6f);
             grounded = false;

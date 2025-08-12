@@ -8,9 +8,12 @@ public class Asteroid : MonoBehaviour
     // Start is called before the first frame update
     public float rotationSpeed = 50f; // degrees per second
     private int rotationDirection; // 1 for clockwise, -1 for counterclockwise
+
+    private AudioSource audioSource;
     void Start()
     {
         ChooseRotation();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -20,6 +23,7 @@ public class Asteroid : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        audioSource.Play();
         if (collision.gameObject.CompareTag("Player"))
         {
             // Get the GravitySwitch script and call the same method
