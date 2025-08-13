@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 1
+  gravityFlipFX: {fileID: 4846226332856259277, guid: 75d8d7f6aff3b9a40b0848e482c8386e, type: 3}
 --- !u!82 &-2566057166867288958
 AudioSource:
   m_ObjectHideFlags: 0

@@ -5,14 +5,11 @@ using UnityEngine;
 public class GravityFlipPlatform : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float duration = 1f;
 
-    private Coroutine currentFlip;
-
-    private AudioSource audioSource;
+    private AudioSource audioSource; // AudioSource component to play sound when player touches the platform
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>(); 
     }
 
     // Update is called once per frame
@@ -20,17 +17,16 @@ public class GravityFlipPlatform : MonoBehaviour
     {
         
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
+        /* only respond to collisions with objects tagged "Player"
+        calls the FlipGravity method from the GravitySwitch script attached
+        to the player ensuring the platform interacts with the player's gravity state */
         audioSource.Play();
         if (collision.gameObject.CompareTag("Player"))
         {
-            // Get the GravitySwitch script and call the same method
             GravitySwitch gs = collision.gameObject.GetComponent<GravitySwitch>();
-            if (gs != null)
-            {
-                gs.FlipGravity();
-            }
+            gs.FlipGravity();
         }
     }
 }

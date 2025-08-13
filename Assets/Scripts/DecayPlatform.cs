@@ -6,16 +6,13 @@ public class DecayPlatform : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    //flash color value
-    public Color FlashColor = Color.red;
-    public float FlashDuration = 0.1f;
-    //x amt of flashes before decay
-    public int FlashCount = 5;
+    public Color FlashColor = Color.red; // the color the platform flashes before disappearing
+    public float FlashDuration = 0.1f; // how long the platform stays in FlashColor each time it flashes
+    public int FlashCount = 5; // number of flashes before the platform is destroyed
 
-    private bool triggered = false;
-    private SpriteRenderer sr;
-    //stores platform original color for switching
-    private Color originalColor;
+    private bool triggered = false; // tracks if the platform has already been stepped on by the player
+    private SpriteRenderer sr; // reference to the SpriteRenderer to change the platform's color
+    private Color originalColor; // the platform's original color to restore after flashing
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -29,6 +26,8 @@ public class DecayPlatform : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
+        /* if the player touches the platform for the first time
+        mark it as triggered and start the decay sequence */
         if (!triggered && collision.gameObject.tag == "Player")
         {
             triggered = true;
@@ -38,13 +37,16 @@ public class DecayPlatform : MonoBehaviour
 
     IEnumerator Decay()
     {
-        //total time platform will flash
-        float flashTime = FlashCount * FlashDuration * 2;
-        float waitTime = 5f - flashTime;
+        /* wait a few seconds before flashing the platform
+        flash it several times before destroying it */
 
-        // Wait before starting flash (so platform lasts ~5s total)
+        float flashTime = FlashCount * FlashDuration * 2; // calculate total time spent flashing
+        float waitTime = 5f - flashTime; // make the platform last ~5 seconds total before disappearing
+
+        // wait before starting flash (so platform lasts ~5s total)
         yield return new WaitForSeconds(waitTime);
 
+        // flash between FlashColor and originalColor
         for (int i = 0; i < FlashCount; i++)
         {
             sr.color = FlashColor;
@@ -53,6 +55,7 @@ public class DecayPlatform : MonoBehaviour
             yield return new WaitForSeconds(FlashDuration);
         }
 
+        // finally destroy the platform
         Destroy(gameObject);
     }
 }

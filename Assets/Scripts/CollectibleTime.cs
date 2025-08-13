@@ -5,11 +5,12 @@ using UnityEngine;
 public class CollectibleTime : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float timeBonus = 5f;
-    public float rotationSpeed = 50f; // degrees per second
-    private int rotationDirection; // 1 for clockwise, -1 for counterclockwise
+    public float RotationSpeed = 50f; // how fast the collectible rotates in degrees per second
 
-    private AudioSource audioSource;
+    private float timeBonus = 5f; // amount of extra time given to the player when collected
+    private int rotationDirection; // 1 for clockwise rotation -1 for counterclockwise rotation
+    private AudioSource audioSource; // plays a sound effect when the collectible is picked up
+
     void Start()
     {
         ChooseRotation();
@@ -24,23 +25,39 @@ public class CollectibleTime : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        audioSource.Play();
+        /* when another object enters this collectible's trigger
+        play the pickup sound if the colliding object has the "Player" tag
+        find the GameUIManager and call AddTime to increase the remaining time
+        then destroy the collectible after the sound finishes playing */
+        if (audioSource != null)
+        {
+            audioSource.Play();
+        }
+
         if (collision.CompareTag("Player"))
         {
             GameUIManager uiManager = FindObjectOfType<GameUIManager>();
-            uiManager.AddTime(timeBonus);
-            Destroy(gameObject, audioSource.clip.length);
+            if (uiManager != null)
+            {
+                uiManager.AddTime(timeBonus);
+            }
+
+            Destroy(gameObject, audioSource != null ? audioSource.clip.length : 0f);
         }
     }
+
     void ChooseRotation()
     {
-        // Random.Range with ints is inclusive for min, exclusive for max
-        int choice = Random.Range(1, 3); // returns 1 or 2
+        /* randomly choose whether this collectible will rotate
+        clockwise or counterclockwise */
+        int choice = Random.Range(1, 3);
         rotationDirection = (choice == 1) ? 1 : -1;
     }
 
     void SpinSprite()
     {
-        transform.Rotate(0f, 0f, rotationSpeed * rotationDirection * Time.deltaTime);
+        /* continuously rotate the collectible's transform
+        based on RotationSpeed and rotationDirection */
+        transform.Rotate(0f, 0f, RotationSpeed * rotationDirection * Time.deltaTime);
     }
 }

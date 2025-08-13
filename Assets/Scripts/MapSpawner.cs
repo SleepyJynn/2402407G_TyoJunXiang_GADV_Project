@@ -6,27 +6,28 @@ public class MapSpawner : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    //platforms
-    public GameObject[] PlatformTypes;
-    public int PlatformCount = 10;
-    public float MinDistance = 2f;
-    public Transform PlatformParent;
+    // Platforms
+    public GameObject[] PlatformTypes; // array of platform prefabs to spawn
+    public int PlatformCount = 10; // number of platforms to spawn
+    public float MinDistance = 2f; // minimum distance between spawned objects
+    public Transform PlatformParent; // parent for spawned platforms in hierarchy
 
-    //asteroid
-    public GameObject AsteroidPrefab;
-    public Transform AsteroidParent;
+    // Asteroid
+    public GameObject AsteroidPrefab; // prefab for the asteroid
+    public Transform AsteroidParent; // parent for asteroid in hierarchy
 
-    //collectible time
-    public GameObject CollectibleTimePrefab;
-    public Transform CollectibleTimeParent;
+    // Collectible Time
+    public GameObject CollectibleTimePrefab; // prefab for collectible time object
+    public Transform CollectibleTimeParent; // parent for collectible time objects
 
-    //bounds
-    private float minX = -12.6f;
-    private float maxX = 61.5f;
-    private float minY = -13.6f;
-    private float maxY = 20f;
+    // Spawn bounds
+    private float minX = -12.6f; // minimum X coordinate for spawn
+    private float maxX = 61.5f; // maximum X coordinate for spawn
+    private float minY = -13.6f; // minimum Y coordinate for spawn
+    private float maxY = 20f; // maximum Y coordinate for spawn
 
-    private List<Vector2> placedPositions = new List<Vector2>();
+    // Tracking
+    private List<Vector2> placedPositions = new List<Vector2>(); // tracks used positions to avoid overlap
 
     void Start()
     {
@@ -44,6 +45,7 @@ public class MapSpawner : MonoBehaviour
         int spawned = 0;
         int attempts = 0;
 
+        // attempt to spawn platforms until count reached or too many attempts
         while (spawned < PlatformCount && attempts < PlatformCount * 20)
         {
             attempts++;
@@ -51,6 +53,7 @@ public class MapSpawner : MonoBehaviour
 
             bool farEnough = IsFarEnoughFromOthers(randomPos);
 
+            // only spawn if far enough from other objects
             if (farEnough)
             {
                 SpawnPlatformAt(randomPos);
@@ -63,6 +66,8 @@ public class MapSpawner : MonoBehaviour
     void SpawnAllAsteroids()
     {
         int attempts = 0;
+
+        // try spawning asteroid(s) until max attempts reached
         while (attempts < 50) // limit tries
         {
             attempts++;
@@ -70,6 +75,7 @@ public class MapSpawner : MonoBehaviour
 
             if (IsFarEnoughFromOthers(randomPos))
             {
+                // instantiate asteroid and parent to hierarchy
                 Instantiate(AsteroidPrefab, randomPos, Quaternion.identity, AsteroidParent != null ? AsteroidParent : PlatformParent);
                 placedPositions.Add(randomPos);
             }
@@ -79,6 +85,8 @@ public class MapSpawner : MonoBehaviour
     void SpawnAllCollectibleTime()
     {
         int attempts = 0;
+
+        // try spawning collectible time objects until max attempts reached
         while (attempts < 15) // limit tries
         {
             attempts++;
@@ -86,6 +94,7 @@ public class MapSpawner : MonoBehaviour
 
             if (IsFarEnoughFromOthers(randomPos))
             {
+                // instantiate collectible time object and parent to hierarchy
                 Instantiate(CollectibleTimePrefab, randomPos, Quaternion.identity, CollectibleTimeParent != null ? CollectibleTimeParent : PlatformParent);
                 placedPositions.Add(randomPos);
             }
@@ -94,6 +103,7 @@ public class MapSpawner : MonoBehaviour
 
     Vector2 GetRandomPosition()
     {
+        // return a random position within defined bounds
         float x = Random.Range(minX, maxX);
         float y = Random.Range(minY, maxY);
         return new Vector2(x, y);
@@ -101,6 +111,7 @@ public class MapSpawner : MonoBehaviour
 
     bool IsFarEnoughFromOthers(Vector2 pos)
     {
+        // check all previously placed positions to ensure minimum distance
         foreach (Vector2 placed in placedPositions)
         {
             if (Vector2.Distance(placed, pos) < MinDistance)
@@ -111,6 +122,7 @@ public class MapSpawner : MonoBehaviour
 
     void SpawnPlatformAt(Vector2 position)
     {
+        // choose a random platform prefab and instantiate it at given position
         GameObject platform = PlatformTypes[Random.Range(0, PlatformTypes.Length)];
         Instantiate(platform, position, Quaternion.identity, PlatformParent);
     }

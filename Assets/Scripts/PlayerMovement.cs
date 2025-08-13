@@ -5,20 +5,19 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     // Start is called before the first frame update
-    //setting up variables
-    public string LeftControlKey;
-    public string RightControlKey;
-    public string SpaceControlKey;
-    public GravitySwitch switchgravity;
 
-    private bool grounded = false;
+    public GravitySwitch switchgravity; // Reference to GravitySwitch to check gravity state
+    public ParticleSystem jumpDust; // Particle system for jump effect
 
-    public AudioSource audioSource;
+    private bool grounded = false; // Tracks if the player is touching the ground
+    private AudioSource audioSource; // AudioSource for jump sounds
+
     void Start()
     {
-        Debug.Log("Game starts");
-        //assign switchgravity to the GravitySwitch component so i can access it
+        // assign switchgravity to the GravitySwitch component so i can access it
         switchgravity = this.GetComponent<GravitySwitch>();
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -30,34 +29,33 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckIdle();
     }
-    //when collider triggers collision
+
+    // Called when collider starts touching another collider
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //if collider has "ground" tag
+        // If player collides with ground, set grounded to true
         if (collision.gameObject.tag == "ground")
         {
-            //set grounded to true
             grounded = true;
         }
     }
 
     void CheckIdle()
     {
-        //if player is grounded and there is no input
+        // If no key is pressed and player is grounded
         if (!Input.anyKey && grounded)
         {
-            //set the animator to have it idle
+            // Set animator to idle state
             this.GetComponent<Animator>().SetInteger("Motion", 0);
-            //set player x velocity to 0 so that it instantly stops
+            // Stop horizontal movement
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, this.GetComponent<Rigidbody2D>().velocity.y);
         }
     }
 
     void CheckMovement()
     {
-        //if isFlipped from the switchgravity script is true
-        //call the respective movements
-        if (switchgravity.isFlipped == true)
+        // Check gravity flip state and call appropriate movement function
+        if (switchgravity.IsFlipped == true)
         {
             MovementUpsideDown();
         }
@@ -68,73 +66,75 @@ public class PlayerMovement : MonoBehaviour
     }
     void Movement()
     {
-        if (Input.GetKey(LeftControlKey))
+        // Move left
+        if (Input.GetKey(KeyCode.A))
         {
-            //set player x velocity to -5 to move left
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(-5.0f, this.GetComponent<Rigidbody2D>().velocity.y);
-            //flip sprite to face the correct direction
+
             this.GetComponent<SpriteRenderer>().flipX = true;
             if (grounded == true)
             {
-                //set animator to move
                 this.GetComponent<Animator>().SetInteger("Motion", 1);
             }
         }
-        if (Input.GetKey(RightControlKey))
+        // Move right
+        if (Input.GetKey(KeyCode.D))
         {
-            //set player x velocity to 5 to move right
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(5.0f, this.GetComponent<Rigidbody2D>().velocity.y);
-            //flip sprite to face the correct direction
+
             this.GetComponent<SpriteRenderer>().flipX = false;
             if (grounded == true)
             {
-                //set animator to move
                 this.GetComponent<Animator>().SetInteger("Motion", 1);
             }
         }
-        if (Input.GetKey(SpaceControlKey) && grounded == true)
+        // Jump
+        if (Input.GetKey(KeyCode.Space) && grounded == true)
         {
             audioSource.Play();
-            //set player y velocity to 6 to jump
+            jumpDust.Play();
+
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x, 6f);
+
             grounded = false;
-            //set animator to jump
+
             this.GetComponent<Animator>().SetInteger("Motion", 2);
         }
     }
     void MovementUpsideDown()
     {
-        if (Input.GetKey(LeftControlKey))
+        // Move left (flipped gravity)
+        if (Input.GetKey(KeyCode.A))
         {
-            //set player x velocity to -5 to move left
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(-5.0f, this.GetComponent<Rigidbody2D>().velocity.y);
-            //flip sprite to face the correct direction
+            
             this.GetComponent<SpriteRenderer>().flipX = false;
             if (grounded == true)
             {
-                //set animator to move
                 this.GetComponent<Animator>().SetInteger("Motion", 1);
             }
         }
-        if (Input.GetKey(RightControlKey))
+        // Move right (flipped gravity)
+        if (Input.GetKey(KeyCode.D))
         {
-            //set player x velocity to 5 to move right
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(5.0f, this.GetComponent<Rigidbody2D>().velocity.y);
-            //flip sprite to face the correct direction
+            
             this.GetComponent<SpriteRenderer>().flipX = true;
             if (grounded == true)
             {
-                //set animator to move
                 this.GetComponent<Animator>().SetInteger("Motion", 1);
             }
         }
-        if (Input.GetKey(SpaceControlKey) && grounded == true)
+        // Jump (flipped gravity)
+        if (Input.GetKey(KeyCode.Space) && grounded == true)
         {
             audioSource.Play();
-            //set player y velocity to 6 to jump since gravity is flipped
+            jumpDust.Play();
+            
             this.GetComponent<Rigidbody2D>().velocity = new Vector2(this.GetComponent<Rigidbody2D>().velocity.x, -6f);
+
             grounded = false;
-            //set animator to jump
+            
             this.GetComponent<Animator>().SetInteger("Motion", 2);
         }
     }

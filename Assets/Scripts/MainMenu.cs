@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour
     }
     public void PlayGame()
     {
+        // loads the "PlayLevel" scene when the Play button is pressed
         SceneManager.LoadScene("PlayLevel");
     }
 }

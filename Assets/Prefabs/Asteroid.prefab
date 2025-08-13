@@ -170,6 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 50
+  gravityFlipFX: {fileID: 4846226332856259277, guid: 75d8d7f6aff3b9a40b0848e482c8386e, type: 3}
 --- !u!82 &-7118268990677001097
 AudioSource:
   m_ObjectHideFlags: 0
