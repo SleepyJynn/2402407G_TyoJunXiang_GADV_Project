@@ -25,6 +25,8 @@ public class Lose : MonoBehaviour
         CheckForTimeLoss();
         CheckForInput();
     }
+
+    //seperated timeloss and loss from out of bounds (oob) because they work slightly differently in the sense where timeloss needs to check variables while oob only checks for collision
     void CheckForTimeLoss()
     {
         // if the UI manager has flagged a loss and we haven't triggered it yet
@@ -57,6 +59,8 @@ public class Lose : MonoBehaviour
             StartCoroutine(FadeOutPlayerFadeInLose());
         }
     }
+
+    //used coroutine to better control alpha values for fading in and out
     IEnumerator FadeOutPlayerFadeInLose()
     {
         // get the player sprite and store its current color

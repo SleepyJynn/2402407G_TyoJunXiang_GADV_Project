@@ -25,6 +25,7 @@ public class GravityFlipPlatform : MonoBehaviour
         audioSource.Play();
         if (collision.gameObject.CompareTag("Player"))
         {
+            //used to access the FlipGravity function from gravityswitch script so i wont have to create another one, and it helps link all the different sources for switching gravity
             GravitySwitch gs = collision.gameObject.GetComponent<GravitySwitch>();
             gs.FlipGravity();
         }

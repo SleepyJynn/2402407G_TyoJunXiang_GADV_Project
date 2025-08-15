@@ -35,6 +35,7 @@ public class DecayPlatform : MonoBehaviour
         }
     }
 
+    //used coroutines to better control decay
     IEnumerator Decay()
     {
         /* wait a few seconds before flashing the platform

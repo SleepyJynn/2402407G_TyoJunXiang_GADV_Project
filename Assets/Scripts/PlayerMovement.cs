@@ -101,6 +101,8 @@ public class PlayerMovement : MonoBehaviour
             this.GetComponent<Animator>().SetInteger("Motion", 2);
         }
     }
+
+    //why i have a upsidedown for movement is because of the way i did the jumping, if i didnt, when the player is upside down the jump would push them upwards into the platform and not jump inversely
     void MovementUpsideDown()
     {
         // Move left (flipped gravity)

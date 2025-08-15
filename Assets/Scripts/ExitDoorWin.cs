@@ -41,7 +41,7 @@ public class ExitDoorWin : MonoBehaviour
         }
     }
 
-    // coroutine to fade in the win text and panel
+    // coroutine to fade in the win text and panel and to better control it
     IEnumerator FadeInWinFadeInPanel()
     {
         // setup wintext fade
